@@ -1,0 +1,11 @@
+{
+    "require": {
+        "setasign/fpdf": "1.8.1",
+        "phpoffice/phpword": "^0.13.0"
+    },
+	 "autoload":{
+    	"classmap":[
+    		"./pdf.php",
+    		"./word.php"
+    	]}
+}

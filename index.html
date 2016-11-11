@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- METISMENU SCRIPTS -->
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="https://api.trello.com/1/client.js?key=353f9456c33d74dd877895b0909875a2"></script>
+	<script src="trellorepporting.js"></script>
+    <title>Trello Reporting</title>
+	<!-- BOOTSTRAP STYLES-->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+     <!-- FONTAWESOME STYLES-->
+    <link href="assets/css/font-awesome.css" rel="stylesheet" />
+	  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <!-- CUSTOM STYLES-->
+    <link href="assets/css/custom.css" rel="stylesheet" />
+     <!-- GOOGLE FONTS-->
+   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+</head>
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html" id="username">Username</a> 
+            </div>
+  <div style="color: white; padding: 15px 50px 5px 50px; float: right; font-size: 16px;"><span id="status">You are not connected</span> - <a href="#" id="trellologo" class="btn btn-danger square-btn-adjust"><img src="./assets/img/trello.jpg" style="vertical-align:middle;width:28px;height:28px;"/><span id="action"> Login</span></a></div>
+        </nav>   
+           <!-- /. NAV TOP  -->
+                <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+				<li class="text-center">
+                    <img src="assets/img/find_user.png" class="user-image img-responsive"/>
+					</li>
+                    
+                </ul>
+               
+            </div>
+        </nav>  
+        <!-- /. NAV SIDE  -->
+		<form name="repporting" method="post" action="repporting.php">
+        <div id="page-wrapper" >
+            <div id="page-inner">
+				<div id="uploaddialog"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                     <h2 id="boardname">Click on a Board to Create the Report</h2>
+                        <h5><a href="#" id="urltrelloboard">Trello Board<a></h5>
+                    </div>
+                </div>              
+                 <!-- /. ROW  -->
+                  <hr />
+                <div class="row">
+					<div class="col-md-3 col-sm-6 col-xs-6">           
+						<div class="panel panel-back noti-box">
+							<span class="icon-box bg-color-red set-icon">
+								<i class="fa fa-envelope-o"></i>
+							</span>
+							
+							<div class="text-box" >
+								<p class="main-text" id="ListsNum">0 List</p>
+								<p class="text-muted" id="ListsName"></p>
+							</div>
+						 </div>
+					</div>
+					<div class="col-md-3 col-sm-6 col-xs-6">           
+						<div class="panel panel-back noti-box">
+							<span class="icon-box bg-color-green set-icon">
+								<i class="fa fa-bars"></i>
+							</span>
+							<div class="text-box" >
+								<p class="main-text" id="CardsNum">0 Cards</p>
+								<p class="text-muted"></p>
+							</div>
+						 </div>
+					</div>
+					<div class="col-md-3 col-sm-6 col-xs-6">           
+						<div class="panel panel-back noti-box">
+							<span class="icon-box bg-color-blue set-icon">
+								<i class="fa fa-bell-o"></i>
+							</span>
+							<div class="text-box" >
+								<p class="main-text" id="ActionsNum">0 Actions</p>
+								<p class="text-muted"></p>
+							</div>
+						 </div>
+					</div>
+					<div class="col-md-3 col-sm-6 col-xs-6">           
+						<div class="panel panel-back noti-box">
+							<span class="icon-box bg-color-brown set-icon">
+								<i class="fa fa-rocket"></i>
+							</span>
+							<div class="text-box" >
+								<p class="main-text" id="ArchivedNum">0 cards archived</p>
+								<p class="text-muted"></p>
+							</div>
+						 </div>
+					</div>
+				</div>
+                 <!-- /. ROW  -->
+                <hr />            
+				<div class="row">
+				 <div class="col-md-12 col-sm-12 col-xs-12">
+				<input type="submit" value="Create" id="send"/> | Repport period from: <input type="text" name="from" id="from" size="20"> To: <input type="text" name="to" id="to" size="20"> | Flash-Back time from  :  <input type="text" name="fromRetro" id="fromRetro" size="20"> to : <input type="text" name="toRetro" id="toRetro" size="20"> | <input type="radio" name="format" value="pdf"> PDF  - <input type="radio" name="format" value="docx" checked> Word <br/>
+				Notes to include into the repport: <br/>
+				<textarea name="note" style="width:100%;height:100px;"></textarea>
+				</div>
+				</div>
+				<hr />
+				<div class="row" id="processing">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+					<p style="text-align:center;"> Wait a moment while the data are processing. Thanks</p>
+					<div class="progress progress-striped active" id="progressbar">
+					  <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+						<span class="sr-only">A moment please</span>
+					  </div>
+                    </div>
+                </div> 
+				</div>
+                <div class="row" >
+                    <div class="col-md-12 col-sm-12 col-xs-12 Lists">
+					<!--<span class="label label-green">green</span>
+					<span class="label label-yellow">yellow</span>
+					<span class="label label-orange">orange</span>
+					<span class="label label-red">red</span>
+					<span class="label label-purple">purple</span>
+					<span class="label label-blue">blue</span>
+					<span class="label label-blue">sky</span>
+					<span class="label label-lime">lime</span>
+					<span class="label label-pink">pink</span>
+					<span class="label label-black">black</span>--><br/>
+                    </div>
+                </div>    
+                 <!-- /. ROW  -->           
+			</div>
+             <!-- /. PAGE INNER  -->
+            </div>
+			</form>
+         <!-- /. PAGE WRAPPER  -->
+        </div>
+     <!-- /. WRAPPER  -->
+</body>
+</html>
